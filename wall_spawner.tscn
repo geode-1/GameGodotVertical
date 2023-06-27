@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dn7yjh3ali2if"]
+
+[ext_resource type="Script" path="res://wall_spawner.gd" id="1_odft7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1cedn"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8fkxb"]
+material = SubResource("StandardMaterial3D_1cedn")
+
+[sub_resource type="BoxMesh" id="BoxMesh_li2qu"]
+size = Vector3(0.402, 0.3, 1)
+
+[node name="wall_spawner" type="Node3D"]
+script = ExtResource("1_odft7")
+
+[node name="Spawn_timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_8fkxb")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.52999)
+mesh = SubResource("BoxMesh_li2qu")
+skeleton = NodePath("../MeshInstance3D")
+
+[connection signal="timeout" from="Spawn_timer" to="." method="_on_timer_timeout" flags=18]

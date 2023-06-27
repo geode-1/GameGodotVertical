@@ -1,0 +1,86 @@
+[gd_scene load_steps=9 format=3 uid="uid://bfh23kd1l3cis"]
+
+[ext_resource type="Script" path="res://Platfrom_spawner.gd" id="1_bn3kn"]
+
+[sub_resource type="Curve3D" id="Curve3D_hmhdk"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0.0841994, -0.027499, -0.0288801, 0, 0, 0, 0, 0, 0, 15, -1, 0, 0, 0, 0, 0, 0, 0, 15, -1, 8, 0, 0, 0, 0, 0, 0, -0.0222703, -0.80673, 7.84226, 0, 0, 0, 0, 0, 0, -0.0282316, -0.80085, 0.452412),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ekm76"]
+albedo_color = Color(0.25098, 0.45098, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_134oo"]
+material = SubResource("StandardMaterial3D_ekm76")
+
+[sub_resource type="BoxMesh" id="BoxMesh_6vgqo"]
+size = Vector3(0.506, 0.406, 0.426)
+
+[sub_resource type="Animation" id="Animation_so1uu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_y3t2n"]
+resource_name = "rotation"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d8tjd"]
+_data = {
+"RESET": SubResource("Animation_so1uu"),
+"rotation": SubResource("Animation_y3t2n")
+}
+
+[node name="Path3D" type="Path3D"]
+curve = SubResource("Curve3D_hmhdk")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999971, 0.0841994, -0.027499, -0.0288801)
+rotation_mode = 0
+
+[node name="Platfrom_spawner_move" type="Node3D" parent="PathFollow3D"]
+script = ExtResource("1_bn3kn")
+
+[node name="Spawn_timer" type="Timer" parent="PathFollow3D/Platfrom_spawner_move"]
+wait_time = 1.5
+autostart = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PathFollow3D/Platfrom_spawner_move"]
+mesh = SubResource("BoxMesh_134oo")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="PathFollow3D/Platfrom_spawner_move"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.60711)
+mesh = SubResource("BoxMesh_6vgqo")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PathFollow3D/Platfrom_spawner_move"]
+autoplay = "rotation"
+libraries = {
+"": SubResource("AnimationLibrary_d8tjd")
+}
+
+[connection signal="timeout" from="PathFollow3D/Platfrom_spawner_move/Spawn_timer" to="PathFollow3D/Platfrom_spawner_move" method="_on_timer_timeout" flags=18]

@@ -1,0 +1,64 @@
+[gd_scene load_steps=6 format=3 uid="uid://cier3dg8u8206"]
+
+[ext_resource type="PackedScene" uid="uid://dn7yjh3ali2if" path="res://wall_spawner.tscn" id="1_ohsbw"]
+
+[sub_resource type="Curve3D" id="Curve3D_5bb7s"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 0, 0, 16, 0, 8, 0, 0, 0, 0, 0, 0, 0, -1, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="Animation" id="Animation_tp82n"]
+length = 0.001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_6ia6y"]
+resource_name = "rotate"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kn04o"]
+_data = {
+"RESET": SubResource("Animation_tp82n"),
+"rotate": SubResource("Animation_6ia6y")
+}
+
+[node name="wall_spawner_move" type="Path3D"]
+curve = SubResource("Curve3D_5bb7s")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="."]
+rotation_mode = 0
+
+[node name="wall_spawner" parent="PathFollow3D" instance=ExtResource("1_ohsbw")]
+transform = Transform3D(1, 0, 0, 0, 1, -3.99275e-09, 0, -3.99275e-09, 1, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PathFollow3D/wall_spawner"]
+autoplay = "rotate"
+libraries = {
+"": SubResource("AnimationLibrary_kn04o")
+}

@@ -1,0 +1,174 @@
+[gd_scene load_steps=17 format=3 uid="uid://dnmlksfylret4"]
+
+[ext_resource type="PackedScene" uid="uid://cmoircm4nbyw3" path="res://Player.tscn" id="1_cp1j0"]
+[ext_resource type="Script" path="res://world_2.gd" id="1_f3cim"]
+[ext_resource type="PackedScene" uid="uid://bvvbpm106yxwv" path="res://move_platform.tscn" id="3_6k4rm"]
+[ext_resource type="PackedScene" uid="uid://bd5ag5qm48so8" path="res://platfrom_spawner.tscn" id="4_m6q5h"]
+[ext_resource type="PackedScene" uid="uid://dn7yjh3ali2if" path="res://wall_spawner.tscn" id="5_obiwb"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_n4t4s"]
+size = Vector3(5, 1, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ad7t7"]
+size = Vector3(5, 1, 10)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_gou37"]
+size = Vector2(100, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_efm4g"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_ndg7f"]
+
+[sub_resource type="Sky" id="Sky_scpic"]
+sky_material = SubResource("PhysicalSkyMaterial_ndg7f")
+
+[sub_resource type="Environment" id="Environment_cw8yc"]
+background_mode = 2
+sky = SubResource("Sky_scpic")
+fog_enabled = true
+fog_light_energy = 1.17
+fog_density = 0.0311
+fog_aerial_perspective = 0.858
+fog_sky_affect = 0.41
+fog_height = -420.38
+fog_height_density = 9.6
+
+[sub_resource type="Curve3D" id="Curve3D_884qo"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -0.0131626, -1.01889, 0.317371, 0, 0, 0, 0, 0, 0, 18.4821, -0.957172, -1.18989, 0, 0, 0, 0, 0, 0, 6.5081, -1.88299, 9.82895, 0, 0, 0, 0, 0, 0, -0.259082, -0.93424, 0.4354),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
+}
+point_count = 4
+
+[sub_resource type="Animation" id="Animation_pmt3l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_5826w"]
+resource_name = "spawn_move"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eefo6"]
+_data = {
+"RESET": SubResource("Animation_pmt3l"),
+"spawn_move": SubResource("Animation_5826w")
+}
+
+[node name="world2" type="Node3D"]
+script = ExtResource("1_f3cim")
+
+[node name="Player" parent="." instance=ExtResource("1_cp1j0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.3246, 11.3614, -2.97013)
+
+[node name="Platform" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.95027, 2.17912, 4.11967)
+collision_layer = 10
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform"]
+mesh = SubResource("BoxMesh_n4t4s")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform"]
+shape = SubResource("BoxShape3D_ad7t7")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="."]
+transform = Transform3D(0.99911, 0.0406149, -0.0113767, -0.0383633, 0.987158, 0.15507, 0.0175287, -0.154495, 0.987838, -23.428, 7.9855, -4.37692)
+collision_layer = 10
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D3"]
+transform = Transform3D(1, -1.07306e-11, 0, 4.55431e-11, 1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_n4t4s")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D3"]
+shape = SubResource("BoxShape3D_ad7t7")
+
+[node name="StaticBody3D4" type="StaticBody3D" parent="."]
+transform = Transform3D(0.999999, 0.00144862, 0, -0.00144862, 0.999999, 0, 0, 0, 1, -1.06554, 2.17912, -17.807)
+collision_layer = 10
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D4"]
+mesh = SubResource("BoxMesh_n4t4s")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D4"]
+shape = SubResource("BoxShape3D_ad7t7")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+collision_layer = 10
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2"]
+mesh = SubResource("PlaneMesh_gou37")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+shape = SubResource("BoxShape3D_efm4g")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cw8yc")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.409859, -0.590769, 0.694987, 1.21876e-08, 0.761923, 0.647667, -0.912149, 0.265452, -0.312281, 11.5457, 7.26434, 7.09939)
+light_energy = 2.859
+shadow_enabled = true
+
+[node name="Move_platform" parent="." instance=ExtResource("3_6k4rm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.6975, 1.65831, 0)
+
+[node name="Platfrom_spawner" parent="." instance=ExtResource("4_m6q5h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.2487, 2.93424, -17.3105)
+
+[node name="Platfrom_spawner2" parent="." instance=ExtResource("4_m6q5h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.4878, 2.93424, -22.6471)
+
+[node name="Platfrom_spawner3" parent="." instance=ExtResource("4_m6q5h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.2377, 2.93424, -22.4354)
+
+[node name="wall_spawner" parent="." instance=ExtResource("5_obiwb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.1087, 2.48971, -21.3661)
+
+[node name="wall_spawner2" parent="." instance=ExtResource("5_obiwb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.6485, 2.48971, -29.6653)
+
+[node name="wall_spawner3" parent="." instance=ExtResource("5_obiwb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.7984, 2.48971, -27.9663)
+
+[node name="Path3D" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.25908, 2.93424, -22.4354)
+curve = SubResource("Curve3D_884qo")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(-0.0812252, -0.00331438, 0.99669, 2.32831e-10, 0.999827, 0.00332592, -0.996696, 0.000270103, -0.0812247, -0.0131626, -1.01889, 0.317371)
+
+[node name="Platfrom_spawner4" parent="Path3D/PathFollow3D" instance=ExtResource("4_m6q5h")]
+transform = Transform3D(-0.0812249, -1.79227e-11, -0.996696, -0.00331553, 1.00012, 0.000270196, 0.99669, 0.00332612, -0.0812245, 0.315254, 1.01888, 0.0422859)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Path3D/PathFollow3D/Platfrom_spawner4"]
+autoplay = "spawn_move"
+libraries = {
+"": SubResource("AnimationLibrary_eefo6")
+}

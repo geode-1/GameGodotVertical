@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://cmoircm4nbyw3"]
+
+[ext_resource type="Script" path="res://Player.gd" id="1_rddmu"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ybr5p"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_qherk"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_ccls8"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rhf6u"]
+radius = 0.532
+height = 2.274
+
+[node name="Player" type="CharacterBody3D" groups=["player"]]
+collision_mask = 14
+script = ExtResource("1_rddmu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_ybr5p")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_qherk")
+
+[node name="CameraBase" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="CameraBase"]
+transform = Transform3D(1, 0, 0, 0, 0.952023, 0.306028, 0, -0.306028, 0.952023, 0, 1.52255, 3.63621)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, -1.5246e-23, -1.5246e-23, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.082583, -0.285232)
+mesh = SubResource("PrismMesh_ccls8")
+
+[node name="wall_raycasts" type="Node3D" parent="."]
+
+[node name="still_on_wall_check" type="RayCast3D" parent="wall_raycasts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.473143, -0.230286)
+collision_mask = 10
+
+[node name="wall_check" type="RayCast3D" parent="wall_raycasts"]
+transform = Transform3D(-0.0168939, 0, 0.999857, 0, 1, 0, -0.999857, 0, -0.0168939, 0, 0, 0)
+target_position = Vector3(1.334, 0.222, 2.08165e-12)
+collision_mask = 10
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("CapsuleShape3D_rhf6u")

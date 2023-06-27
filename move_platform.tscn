@@ -1,0 +1,85 @@
+[gd_scene load_steps=9 format=3 uid="uid://bvvbpm106yxwv"]
+
+[ext_resource type="Script" path="res://move_platform.gd" id="1_s52uj"]
+
+[sub_resource type="Curve3D" id="Curve3D_pkwla"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -0.0213267, 0, -0.0213268, 0, 0, 0, 0, 0, 0, 1, 3, 509),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_efwcb"]
+albedo_color = Color(0.14902, 0.266667, 0.788235, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fj5fm"]
+material = SubResource("StandardMaterial3D_efwcb")
+size = Vector3(5, 0.5, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h64kk"]
+size = Vector3(5, 0.5, 8)
+
+[sub_resource type="Animation" id="Animation_4ny54"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_vqm75"]
+resource_name = "move_platform"
+length = 20.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 19.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rpeqh"]
+_data = {
+"RESET": SubResource("Animation_4ny54"),
+"move_platform": SubResource("Animation_vqm75")
+}
+
+[node name="Move_platform" type="Node3D"]
+script = ExtResource("1_s52uj")
+
+[node name="Path3D" type="Path3D" parent="."]
+curve = SubResource("Curve3D_pkwla")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(0.999832, -1.09169e-05, 0.00200475, -9.06466e-07, 0.999839, 0.00588868, -0.00200611, -0.00589269, 0.999154, 0.312269, 0.97989, 166.24)
+progress = 166.265
+
+[node name="platform" type="CharacterBody3D" parent="Path3D/PathFollow3D"]
+transform = Transform3D(1, 0, 2.59811e-11, 0, 1, 0, 2.59811e-11, 0, 1, 0, 0, 0)
+collision_layer = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Path3D/PathFollow3D/platform"]
+mesh = SubResource("BoxMesh_fj5fm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Path3D/PathFollow3D/platform"]
+shape = SubResource("BoxShape3D_h64kk")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Path3D/PathFollow3D/platform"]
+autoplay = "move_platform"
+libraries = {
+"": SubResource("AnimationLibrary_rpeqh")
+}
+
+[connection signal="animation_finished" from="Path3D/PathFollow3D/platform/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

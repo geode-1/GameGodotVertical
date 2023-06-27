@@ -1,0 +1,56 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqrqg4t0lnej6"]
+
+[ext_resource type="Script" path="res://Options.gd" id="1_gu5g4"]
+
+[node name="Options" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gu5g4")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1248.0
+offset_bottom = 712.0
+color = Color(0.831373, 0.831373, 0.831373, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.0
+offset_top = -56.5
+offset_right = 130.0
+offset_bottom = 56.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="world_1" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "world_1"
+
+[node name="world_2" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "world_2"
+
+[node name="world_3" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "world_3"
+
+[node name="Back" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/world_1" to="." method="_on_world_1_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/world_2" to="." method="_on_world_2_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/world_3" to="." method="_on_world_3_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]

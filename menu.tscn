@@ -1,0 +1,71 @@
+[gd_scene load_steps=2 format=3 uid="uid://rhx8120x657n"]
+
+[ext_resource type="Script" path="res://Menu.gd" id="1_3bncv"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3bncv")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1248.0
+offset_bottom = 712.0
+color = Color(0.831373, 0.831373, 0.831373, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.0
+offset_top = -56.5
+offset_right = 130.0
+offset_bottom = 56.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Play" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Play"
+
+[node name="OtherPrototypes" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Other Prototypes"
+
+[node name="Quit" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+layout_mode = 2
+offset_left = 107.0
+offset_top = 416.0
+offset_right = 390.0
+offset_bottom = 578.0
+color = Color(0.411765, 0.411765, 0.411765, 1)
+
+[node name="Label" type="Label" parent="ColorRect2"]
+layout_mode = 2
+offset_left = 9.0
+offset_top = 11.0
+offset_right = 269.0
+offset_bottom = 141.0
+text = "WASD = move
+SPACE = jump
+M = menu
+esc = quit
+Run towards walls to climb them "
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/OtherPrototypes" to="." method="_on_other_prototypes_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

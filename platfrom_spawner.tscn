@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://bd5ag5qm48so8"]
+
+[ext_resource type="Script" path="res://Platfrom_spawner.gd" id="1_1via6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ekm76"]
+albedo_color = Color(0.25098, 0.45098, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_134oo"]
+material = SubResource("StandardMaterial3D_ekm76")
+
+[sub_resource type="BoxMesh" id="BoxMesh_6vgqo"]
+size = Vector3(0.506, 0.406, 0.426)
+
+[node name="Platfrom_spawner" type="Node3D"]
+script = ExtResource("1_1via6")
+
+[node name="Spawn_timer" type="Timer" parent="."]
+wait_time = 1.5
+autostart = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_134oo")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.60711)
+mesh = SubResource("BoxMesh_6vgqo")
+
+[connection signal="timeout" from="Spawn_timer" to="." method="_on_timer_timeout"]
