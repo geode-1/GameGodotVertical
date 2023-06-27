@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://d0lyel4tb8svt"]
+
+[ext_resource type="Script" path="res://enemy_2.gd" id="1_dxsxl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ye168"]
+albedo_color = Color(1, 0, 0.0156863, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_bj6wi"]
+material = SubResource("StandardMaterial3D_ye168")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fwodx"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ln7md"]
+size = Vector3(0.172, 0.178, 0.156)
+
+[node name="enemy_2" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_dxsxl")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_bj6wi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_fwodx")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(2.726, -0.53, 2.08165e-12)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.558854, 0.513681, 0)
+mesh = SubResource("BoxMesh_ln7md")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
