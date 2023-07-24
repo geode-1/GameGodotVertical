@@ -1,4 +1,4 @@
-extends Area3D
+extends StaticBody3D
 
 
 # Called when the node enters the scene tree for the first time.
@@ -11,6 +11,9 @@ func _process(delta):
 	pass
 
 
-func _on_area_entered(area):
-	GameTimer.high_score_timer += 1
+func _on_animation_player_animation_finished(anim_name):
 	queue_free()
+
+
+func _on_timer_timeout():
+	$AnimationPlayer.play("disapper_warning")

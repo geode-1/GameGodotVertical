@@ -3,19 +3,18 @@ extends CharacterBody3D
 
 enum {GROUND = 1, AIR, CLIMB}
 @export var default_speed = 10
-var jump_velocity = 4.5
+var jump_velocity = 6.5
 @export var sprint_speed = 15.0
 var speed = default_speed
 var climb_speed = 5.0
-var climb_stop_speed = 0
 var gravity_changed = false
 var dead = false
 var coin_counter = 0
+signal coin
 
 
 
-
-var total_jumps = false
+var total_jumps = 0
 var normal_gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var gravity_enabled = true
 var player = "res://Player.tscn"
@@ -45,7 +44,9 @@ func _input(event):
 func damage():
 	pass
 
-
+func death():
+	get_tree().change_scene_to_file("res://game_over.tscn")
+	dead = true
 
 func _physics_process(delta):
 
@@ -57,8 +58,15 @@ func _physics_process(delta):
 		# Handle Jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = jump_velocity
-		total_jumps = true
+		total_jumps = 1
 	
+		
+		
+		#double jump 
+	if Input.is_action_just_pressed("jump") and not is_on_floor() and total_jumps == 1:
+		velocity.y = jump_velocity
+		total_jumps = 2
+
 	
 		
 
@@ -106,16 +114,24 @@ func _physics_process(delta):
 		print("wallColide")
 
 		if Input.is_action_pressed("move_foward"):
-
-			velocity.x = direction.x * climb_speed
-			velocity.z = direction.z * climb_speed
+		# Calculate the movement vector
+			var movement = Vector3(direction.x, 0, direction.z).normalized() * climb_speed
+			velocity.x = movement.x
+			velocity.z = movement.z
 			velocity.y = climb_speed
+			
 
 
-		if Input.is_action_pressed("move_backward"):
-			velocity.x = direction.y * climb_speed
-			velocity.z = direction.y * climb_speed
-			velocity.y -= climb_speed
+		elif Input.is_action_pressed("move_backward"):
+			var movement = Vector3(direction.x, 0, direction.z).normalized() * climb_speed
+			velocity.x = movement.x
+			velocity.z = movement.z
+			velocity.y = -climb_speed
+			
+		else:
+		# Reset velocity to prevent drifting
+			velocity.x = 0
+			velocity.z = 0
 
 
 	else:
@@ -127,10 +143,13 @@ func _physics_process(delta):
 
 
 
-	
-
-
 func _on_death_zone_area_entered(area):
-	get_tree().change_scene_to_file("res://game_over.tscn")
-	dead = true
+	death()
+
+func _on_end_deathzone_area_entered(area):
+	death()
+
+func add_coin():
+	coin_counter = coin_counter + 1
+
 

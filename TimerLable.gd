@@ -1,6 +1,6 @@
 extends Label
 
-
+var game_timer = preload("res://GameTimer.gd")
 
 var time_elapsed := 0.0
 
@@ -34,7 +34,10 @@ func _process(delta: float) -> void:
 	#Update lable
 	$".".text = "Time: " + minutes_str + ":" + seconds_str + ":" + milliseconds_str
 
-	
+	'
+
+# Save the time value
+	game_timer.saved_time = time_elapsed'
 	
 
 	
