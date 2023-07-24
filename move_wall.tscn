@@ -63,8 +63,7 @@ script = ExtResource("1_fkdqk")
 curve = SubResource("Curve3D_pkwla")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(0.999754, 0.00016423, 0.0121012, 2.69266e-06, 0.999905, -0.0137879, -0.0121023, 0.0137893, 0.999659, 3.28877, -3.77148, 273.421)
-progress = 273.488
+transform = Transform3D(0.999754, 0.000166923, 0.0121012, 7.2747e-12, 0.999905, -0.0137879, -0.0121023, 0.0137893, 0.999659, -0.0213267, 0, -0.0213268)
 
 [node name="wall" type="CharacterBody3D" parent="Path3D/PathFollow3D"]
 transform = Transform3D(1, 0, 2.59811e-11, 0, 1, 0, 2.59811e-11, 0, 1, 0, 0, 0)

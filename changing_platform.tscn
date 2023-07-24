@@ -1,0 +1,104 @@
+[gd_scene load_steps=10 format=3 uid="uid://dbtbvft6vqxd5"]
+
+[ext_resource type="Script" path="res://changing_platform.gd" id="1_ikhmq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p8j88"]
+size = Vector3(5, 0.246, 5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bt5rl"]
+transparency = 1
+albedo_color = Color(0.309804, 0.435294, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_viypp"]
+material = SubResource("StandardMaterial3D_bt5rl")
+size = Vector3(5, 0.246, 5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0otqa"]
+transparency = 1
+albedo_color = Color(0.709804, 0.635294, 0.996078, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_23ek1"]
+material = SubResource("StandardMaterial3D_0otqa")
+top_radius = 1.5
+bottom_radius = 1.5
+height = 0.248
+
+[sub_resource type="Animation" id="Animation_2o3fv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:mesh:material:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.309804, 0.435294, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D2:mesh:material:albedo_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.709804, 0.635294, 0.996078, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_jr2b6"]
+resource_name = "become_transparent"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:mesh:material:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.309804, 0.435294, 1, 1), Color(0.309804, 0.435294, 1, 0.109804)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D2:mesh:material:albedo_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.709804, 0.635294, 0.996078, 1), Color(0.709804, 0.635294, 0.996078, 0.109804)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jjuu5"]
+_data = {
+"RESET": SubResource("Animation_2o3fv"),
+"become_transparent": SubResource("Animation_jr2b6")
+}
+
+[node name="changingPlatform" type="StaticBody3D"]
+collision_layer = 10
+script = ExtResource("1_ikhmq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_p8j88")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_viypp")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0330293, 0)
+mesh = SubResource("CylinderMesh_23ek1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jjuu5")
+}

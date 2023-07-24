@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://GameOver.gd" id="1_4wakh"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_p6t0f"]
-font_size = 27
+font_size = 23
 font_color = Color(0, 0, 0, 1)
 
 [node name="GameOver" type="Control"]
@@ -50,12 +50,12 @@ text = "Play Again"
 layout_mode = 2
 text = "Quit"
 
-[node name="Label" type="Label" parent="."]
+[node name="Stats" type="Label" parent="."]
 layout_mode = 2
-offset_left = 430.0
-offset_top = 24.0
-offset_right = 820.0
-offset_bottom = 264.0
+offset_left = 437.0
+offset_top = 43.0
+offset_right = 827.0
+offset_bottom = 283.0
 text = "Game Over
 
 Time Made : 00:00:00

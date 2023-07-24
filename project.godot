@@ -15,6 +15,10 @@ run/main_scene="res://menu.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameTimer="*res://GameTimer.gd"
+
 [display]
 
 window/size/mode=2
@@ -88,7 +92,7 @@ change_aspect={
 
 [physics]
 
-3d/default_gravity=13.0
+3d/default_gravity=15.0
 
 [rendering]
 

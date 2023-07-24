@@ -1,6 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://bfpcvimrbiyrs"]
+[gd_scene load_steps=5 format=3 uid="uid://bfpcvimrbiyrs"]
 
+[ext_resource type="Script" path="res://game_ui.gd" id="1_8jh7u"]
 [ext_resource type="Script" path="res://TimerLable.gd" id="1_ftej4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_w1ho2"]
+font_size = 17
+
+[sub_resource type="LabelSettings" id="LabelSettings_l5d50"]
+font_size = 17
 
 [node name="game_ui" type="Control"]
 layout_mode = 3
@@ -9,6 +16,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_8jh7u")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
@@ -23,5 +31,11 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Time : 0:0:0"
+label_settings = SubResource("LabelSettings_w1ho2")
 uppercase = true
 script = ExtResource("1_ftej4")
+
+[node name="Coins" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Coins: 0"
+label_settings = SubResource("LabelSettings_l5d50")

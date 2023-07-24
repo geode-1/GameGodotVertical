@@ -1,18 +1,42 @@
-[gd_scene load_steps=8 format=3 uid="uid://bplqafvs7udi8"]
+[gd_scene load_steps=10 format=3 uid="uid://bplqafvs7udi8"]
 
 [ext_resource type="Script" path="res://coin.gd" id="1_ejr77"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wgvar"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q0qse"]
+albedo_color = Color(1, 0.670588, 0.219608, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8qj6m"]
+material = SubResource("StandardMaterial3D_q0qse")
+top_radius = 0.283
+bottom_radius = 0.283
+height = 0.213
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bx3n1"]
 albedo_color = Color(1, 0.819608, 0.219608, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_iib5v"]
-material = SubResource("StandardMaterial3D_wgvar")
+material = SubResource("StandardMaterial3D_bx3n1")
 top_radius = 0.283
 bottom_radius = 0.283
 height = 0.066
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_xvvn1"]
 radius = 0.314
+
+[sub_resource type="Animation" id="Animation_o8epw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_voc7p"]
 resource_name = "Spin"
@@ -31,30 +55,19 @@ tracks/0/keys = {
 "values": [Vector3(0, 0, 0), Vector3(3.48787e-16, 6.28319, 3.48787e-16)]
 }
 
-[sub_resource type="Animation" id="Animation_o8epw"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_32ic7"]
 _data = {
 "RESET": SubResource("Animation_o8epw"),
 "Spin": SubResource("Animation_voc7p")
 }
 
-[node name="coin" type="StaticBody3D"]
+[node name="coin" type="Area3D"]
 collision_layer = 0
 script = ExtResource("1_ejr77")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, -1.5246e-23, -1.5246e-23, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_8qj6m")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.642, 0, -2.50339e-23, -2.50339e-23, -7.17741e-08, -1.642, 0, 1.642, -7.17741e-08, 0, 0, 0)
@@ -64,15 +77,10 @@ mesh = SubResource("CylinderMesh_iib5v")
 transform = Transform3D(1.642, 0, 0, 0, 1.642, 0, 0, 0, 1.642, 0, 0, 0)
 shape = SubResource("SphereShape3D_xvvn1")
 
-[node name="Area3D" type="Area3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-shape = SubResource("SphereShape3D_xvvn1")
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Spin"
 libraries = {
 "": SubResource("AnimationLibrary_32ic7")
 }
 
-[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

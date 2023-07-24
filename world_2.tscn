@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://dnmlksfylret4"]
+[gd_scene load_steps=24 format=3 uid="uid://dnmlksfylret4"]
 
 [ext_resource type="PackedScene" uid="uid://cmoircm4nbyw3" path="res://Player.tscn" id="1_cp1j0"]
 [ext_resource type="Script" path="res://world_2.gd" id="1_f3cim"]
 [ext_resource type="PackedScene" uid="uid://bvvbpm106yxwv" path="res://move_platform.tscn" id="3_6k4rm"]
 [ext_resource type="PackedScene" uid="uid://bd5ag5qm48so8" path="res://platfrom_spawner.tscn" id="4_m6q5h"]
 [ext_resource type="PackedScene" uid="uid://dn7yjh3ali2if" path="res://wall_spawner.tscn" id="5_obiwb"]
+[ext_resource type="PackedScene" uid="uid://1obqk3n0ynej" path="res://disappearing_platfrom.tscn" id="6_mst1w"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_n4t4s"]
 size = Vector3(5, 1, 10)
@@ -79,6 +80,24 @@ _data = {
 "spawn_move": SubResource("Animation_5826w")
 }
 
+[sub_resource type="BoxMesh" id="BoxMesh_innxa"]
+size = Vector3(13.64, 1.262, 9.752)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_mr0al"]
+points = PackedVector3Array(6.92825, 0.776302, 4.97511, -6.92825, -0.739254, -4.98425, -6.92825, 0.776302, -4.98425, 6.92825, -0.739254, -4.98425, -6.92825, -0.739254, 4.97511, -6.92825, 0.776302, 4.97511, 6.92825, 0.776302, -4.98425, 6.92825, -0.739254, 4.97511)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6exur"]
+size = Vector3(0.936, 8.054, 9.974)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_nqok5"]
+points = PackedVector3Array(0.561064, 4.12554, 5.06517, -0.547159, -4.10535, -5.06517, 0.561064, -4.10535, -5.06517, -0.547159, -4.10535, 5.06517, -0.547159, 4.12554, -5.06517, 0.561064, 4.12554, -5.06517, 0.561064, -4.10535, 5.06517, -0.547159, 4.12554, 5.06517)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2agfa"]
+size = Vector3(9.976, 1, 9.612)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_m6rax"]
+points = PackedVector3Array(4.79956, 0.5, 4.67323, -5.06717, -0.579175, -4.88517, -5.06717, -0.579175, 4.93248, 5.06717, -0.579175, -4.88517, -4.79956, 0.5, -4.62593, 5.06717, -0.579175, 4.93248, -4.79956, 0.5, 4.67323, 4.79956, 0.5, -4.62593)
+
 [node name="world2" type="Node3D"]
 script = ExtResource("1_f3cim")
 
@@ -109,7 +128,7 @@ skeleton = NodePath("../..")
 shape = SubResource("BoxShape3D_ad7t7")
 
 [node name="StaticBody3D4" type="StaticBody3D" parent="."]
-transform = Transform3D(0.999999, 0.00144862, 0, -0.00144862, 0.999999, 0, 0, 0, 1, -1.06554, 2.17912, -17.807)
+transform = Transform3D(0.999999, 0.00144862, 0, -0.00144862, 0.999999, 0, 0, 0, 1, -4.72335, 2.17912, -24.5439)
 collision_layer = 10
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D4"]
@@ -158,17 +177,46 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.6485, 2.48971, -29.6653)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.7984, 2.48971, -27.9663)
 
 [node name="Path3D" type="Path3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.25908, 2.93424, -22.4354)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.25908, 2.93424, -1.50468)
 curve = SubResource("Curve3D_884qo")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(-0.0812252, -0.00331438, 0.99669, 2.32831e-10, 0.999827, 0.00332592, -0.996696, 0.000270103, -0.0812247, -0.0131626, -1.01889, 0.317371)
+transform = Transform3D(-0.0812252, -0.00331438, 0.996688, 2.32831e-10, 0.999827, 0.00332591, -0.996696, 0.000270103, -0.0812245, -0.0131626, -1.01889, 0.317371)
 
 [node name="Platfrom_spawner4" parent="Path3D/PathFollow3D" instance=ExtResource("4_m6q5h")]
-transform = Transform3D(-0.0812249, -1.79227e-11, -0.996696, -0.00331553, 1.00012, 0.000270196, 0.99669, 0.00332612, -0.0812245, 0.315254, 1.01888, 0.0422859)
+transform = Transform3D(-0.0812249, -3.67783e-11, -0.996696, -0.00331553, 1.00012, 0.000270196, 0.99669, 0.00332612, -0.0812245, 0.315252, 1.01888, 0.0422859)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Path3D/PathFollow3D/Platfrom_spawner4"]
 autoplay = "spawn_move"
 libraries = {
 "": SubResource("AnimationLibrary_eefo6")
 }
+
+[node name="DisappearingPlatfrom" parent="." instance=ExtResource("6_mst1w")]
+transform = Transform3D(0.999985, 0, -0.00541049, 0, 1, 0, 0.00541049, 0, 0.999985, -18, 9, -2)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.4057, -0.0136175, -19.2097)
+collision_layer = 10
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_innxa")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_mr0al")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.28454, 3.79327, 0)
+mesh = SubResource("BoxMesh_6exur")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.28454, 3.79327, 0)
+shape = SubResource("ConvexPolygonShape3D_nqok5")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.8409, 7.29129, 0)
+mesh = SubResource("BoxMesh_2agfa")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.8409, 7.29129, 0)
+shape = SubResource("ConvexPolygonShape3D_m6rax")
