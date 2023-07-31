@@ -12,7 +12,11 @@ var dead = false
 var coin_counter = 0
 signal coin
 
-
+var still_on_wall = false
+@onready var wall_raycasts = $wall_raycasts
+@onready var wall_check = $wall_raycasts/wall_check
+@onready var still_on_wall_check = $wall_raycasts/still_on_wall_check
+var climbing = false
 
 var total_jumps = 0
 var normal_gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -46,6 +50,7 @@ func damage():
 
 func death():
 	get_tree().change_scene_to_file("res://game_over.tscn")
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	dead = true
 
 func _physics_process(delta):
@@ -95,6 +100,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()
 		
+		'
 	if Input.is_action_just_pressed("change_aspect"):
 		if gravity == normal_gravity:
 			gravity = 9
@@ -103,7 +109,7 @@ func _physics_process(delta):
 		else:
 			gravity = normal_gravity
 			speed = default_speed
-			jump_velocity = 13.0
+			jump_velocity = 13.0'
 
 
 	#climbing
@@ -119,6 +125,7 @@ func _physics_process(delta):
 			velocity.x = movement.x
 			velocity.z = movement.z
 			velocity.y = climb_speed
+			climbing = true
 			
 
 
@@ -127,11 +134,23 @@ func _physics_process(delta):
 			velocity.x = movement.x
 			velocity.z = movement.z
 			velocity.y = -climb_speed
+			climbing = true
+			
+			
+	
 			
 		else:
-		# Reset velocity to prevent drifting
+		# Reset the vertical (Y) velocity to prevent automatic upward movement
+			if not climbing:
+				velocity.y = 0
+				climbing = false
+
+
+		# Reset velocity to prevent drifting when not climbing
+		if not wall_check.is_colliding():
 			velocity.x = 0
 			velocity.z = 0
+		
 
 
 	else:

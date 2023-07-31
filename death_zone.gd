@@ -1,6 +1,8 @@
 extends Area3D
 
 
+var player = "res://Player.tscn"
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -12,5 +14,5 @@ func _process(delta):
 
 
 func _on_area_entered(area):
-	get_tree().change_scene_to_file("res://menu.tscn")
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	if "res://Player.tscn" in area :
+		get_tree().change_scene_to_file("res://game_over.tscn")

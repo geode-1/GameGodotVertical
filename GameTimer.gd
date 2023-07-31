@@ -1,12 +1,17 @@
 extends Node
 
-
 var high_score_timer = 0
 var last_score_timer = 0
 var saved_time = 0.0
 var player_has_jumped = false
 
-var score = 0
+var coins = 0
+
+var instance 
+
+
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -15,8 +20,10 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	
 	'if Input.is_action_just_pressed("jump"):
 		self.text = str(GameTimer.score)
 		GameTimer.score += 1
 		print(GameTimer.score)'
+		
+	instance = self
