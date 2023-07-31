@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3 uid="uid://c68pojljqdooy"]
+
+[ext_resource type="Script" path="res://Spring.gd" id="1_5hle5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_my1o6"]
+size = Vector3(3.5, 1.674, 3.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n6fg6"]
+albedo_color = Color(0.419608, 0.658824, 0.290196, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ct7dr"]
+material = SubResource("StandardMaterial3D_n6fg6")
+size = Vector3(3.5, 0.246, 3.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5kifk"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_787tg"]
+material = SubResource("StandardMaterial3D_5kifk")
+size = Vector3(3.5, 0.246, 3.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5frfu"]
+size = Vector3(4, 1.322, 4)
+
+[node name="Spring" type="Area3D"]
+collision_layer = 2
+script = ExtResource("1_5hle5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.717898, 0)
+shape = SubResource("BoxShape3D_my1o6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_ct7dr")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.36061, 0)
+mesh = SubResource("BoxMesh_ct7dr")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0, 1, 0, 0.69739, 0)
+mesh = SubResource("BoxMesh_787tg")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.965926, 0.258819, 9.43348e-08, 0.258819, 0.965926, 2.10201e-09, -7.14593e-08, 1.39075e-08, -1, 0, 0.69739, 0)
+mesh = SubResource("BoxMesh_787tg")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 10
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.541364, 0)
+shape = SubResource("BoxShape3D_5frfu")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cromvo03bnnkj"]
+[gd_scene load_steps=10 format=3 uid="uid://cromvo03bnnkj"]
 
 [ext_resource type="Script" path="res://move_platform.gd" id="1_fkdqk"]
 
@@ -15,6 +15,9 @@ albedo_color = Color(0.741176, 0.0901961, 0.0980392, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_fj5fm"]
 material = SubResource("StandardMaterial3D_nigdd")
 size = Vector3(5, 0.5, 8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3rxsc"]
+size = Vector3(0.492, 1.248, 7.644)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_h64kk"]
 size = Vector3(5, 0.5, 8)
@@ -72,6 +75,16 @@ collision_layer = 10
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Path3D/PathFollow3D/wall"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0)
 mesh = SubResource("BoxMesh_fj5fm")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Path3D/PathFollow3D/wall"]
+transform = Transform3D(0.866045, -0.00851726, -0.499893, -0.499938, -0.00420482, -0.866051, 0.00527442, 0.999955, -0.00789966, 0, 1, 0)
+mesh = SubResource("BoxMesh_3rxsc")
+skeleton = NodePath("../MeshInstance3D")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Path3D/PathFollow3D/wall"]
+transform = Transform3D(-0.866046, 0.00851717, 0.499893, -0.499894, -0.0317752, -0.865505, 0.00851255, -0.999459, 0.0317764, 0, 1, 0)
+mesh = SubResource("BoxMesh_3rxsc")
+skeleton = NodePath("../MeshInstance3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Path3D/PathFollow3D/wall"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0)

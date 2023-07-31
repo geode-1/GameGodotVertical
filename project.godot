@@ -92,7 +92,7 @@ change_aspect={
 
 [physics]
 
-3d/default_gravity=15.0
+3d/default_gravity=13.0
 
 [rendering]
 
