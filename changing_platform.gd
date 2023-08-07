@@ -10,7 +10,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed("jump") and GameTimer.can_platform_change == true:
 		
 		#plafoorm beginning at solid
 		

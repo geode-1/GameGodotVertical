@@ -1,24 +1,6 @@
-extends Node
+extends Area3D
 
-var high_score_timer = 0
-
-
-
-var can_platform_change = true
-
-var coins = 0
-
-var coins_lvl_1 = 0
-var coins_lvl_2 = 0
-var coins_lvl_3 = 0
-
-
-
-
-
-
-
-
+@export var move_death_area = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -27,6 +9,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
-
-
+	if move_death_area == true:
+		$AnimationPlayer.play("death_area_move")
+		
+	

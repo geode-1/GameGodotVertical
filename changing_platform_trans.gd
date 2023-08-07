@@ -1,7 +1,7 @@
 extends StaticBody3D
 
 
-var player = 1
+var player = "res://Player.tscn"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -9,7 +9,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_action_just_pressed("jump")  :
+	if Input.is_action_just_pressed("jump"):
 		if collision_layer:
 			set_collision_layer_value(2, false)
 			set_collision_layer_value(4, false)

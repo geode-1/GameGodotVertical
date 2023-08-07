@@ -2,7 +2,7 @@ extends Area3D
 
 
 var player = "res://Player.tscn"
-const BOUNCE_FORCE = 20
+const BOUNCE_FORCE = 25
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,7 +20,7 @@ func _on_body_entered(body):
 		var player = body as CharacterBody3D
 		if player != null:
  # Set the upward velocity to achieve the bounce effect
-			player.velocity.y = BOUNCE_FORCE
+			player.velocity.y = lerp(BOUNCE_FORCE, 25, 0.4)
 		else:
 			print("Player not found or is null.")
 

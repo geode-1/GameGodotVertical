@@ -13,7 +13,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	$CoinStats.text = "Coins: " + str(GameTimer.coins)
 
 
 func _on_go_menu_pressed():

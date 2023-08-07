@@ -34,10 +34,12 @@ func _process(delta: float) -> void:
 	#Update lable
 	$".".text = "Time: " + minutes_str + ":" + seconds_str + ":" + milliseconds_str
 
-	'
 
-# Save the time value
-	game_timer.saved_time = time_elapsed'
 	
+	GameTimer.high_score_timer = minutes_str + ":" + seconds_str + ":" + milliseconds_str
+
+	
+
+
 
 	

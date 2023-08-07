@@ -12,5 +12,5 @@ func _process(delta):
 
 
 func _on_area_entered(area):
-	GameTimer.high_score_timer += 1
+	GameTimer.coins += 1
 	queue_free()

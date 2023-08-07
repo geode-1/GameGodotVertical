@@ -10,7 +10,7 @@ var climb_speed = 5.0
 var gravity_changed = false
 var dead = false
 var coin_counter = 0
-signal coin
+
 
 var still_on_wall = false
 @onready var wall_raycasts = $wall_raycasts
@@ -41,6 +41,10 @@ func _input(event):
 		CameraBase.rotation.x -= deg_to_rad(event.relative.y * 1) 
 		CameraBase.rotation.x = clamp(CameraBase.rotation.x, deg_to_rad(-90), deg_to_rad(30))
 		rotation.y -= deg_to_rad(event.relative.x * 1)
+		
+	if $CameraBase/Camera3D/camera_collision.is_colliding():
+		$CameraBase/Camera3D.global_transform = lerp(0.5, 0.5, 0.5)
+		
 
 
 
@@ -64,15 +68,17 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = jump_velocity
 		total_jumps = 1
+		GameTimer.can_platform_change = true
 	
 		
 		
-		#double jump 
+		#double jump , note: in a future, change double jump to a mid air dash 
 	if Input.is_action_just_pressed("jump") and not is_on_floor() and total_jumps == 1:
 		velocity.y = jump_velocity
 		total_jumps = 2
 
-	
+		if $".".is_on_floor():
+			GameTimer.can_platform_change = false
 		
 
 	# Get the input direction and handle the movement/deceleration.
@@ -93,6 +99,9 @@ func _physics_process(delta):
 		speed = sprint_speed
 	else:
 		speed = default_speed
+		
+		
+		
 	
 	if Input.is_action_just_pressed("menu"):
 		get_tree().change_scene_to_file("res://menu.tscn")
@@ -100,16 +109,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()
 		
-		'
-	if Input.is_action_just_pressed("change_aspect"):
-		if gravity == normal_gravity:
-			gravity = 9
-			speed = 5
-			jump_velocity = 9
-		else:
-			gravity = normal_gravity
-			speed = default_speed
-			jump_velocity = 13.0'
+		
 
 
 	#climbing
@@ -168,7 +168,7 @@ func _on_death_zone_area_entered(area):
 func _on_end_deathzone_area_entered(area):
 	death()
 
-func add_coin():
-	coin_counter = coin_counter + 1
+
+
 
 
