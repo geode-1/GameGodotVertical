@@ -28,6 +28,9 @@ mesh = SubResource("CapsuleMesh_qherk")
 [node name="Camera3D" type="Camera3D" parent="CameraBase"]
 transform = Transform3D(1, 0, 0, 0, 0.952023, 0.306028, 0, -0.306028, 0.952023, 0, 1.52255, 3.63621)
 
+[node name="camera_collision" type="RayCast3D" parent="CameraBase/Camera3D"]
+transform = Transform3D(-0.997689, -0.0207933, 0.0646858, -0.0674459, 0.418338, -0.905784, -0.00822638, -0.908053, -0.418774, 0, 0.0558637, -0.173787)
+
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, -1.5246e-23, -1.5246e-23, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.514047, -0.285232)
 mesh = SubResource("PrismMesh_ccls8")

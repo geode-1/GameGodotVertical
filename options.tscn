@@ -17,6 +17,14 @@ offset_right = 1248.0
 offset_bottom = 712.0
 color = Color(0.831373, 0.831373, 0.831373, 1)
 
+[node name="ColorRect2" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 384.0
+offset_top = -112.0
+offset_right = 768.0
+offset_bottom = 792.0
+color = Color(0.6, 0.6, 0.6, 1)
+
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8

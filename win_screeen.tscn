@@ -1,0 +1,99 @@
+[gd_scene load_steps=4 format=3 uid="uid://ds1cr6ivr3dpm"]
+
+[ext_resource type="Script" path="res://win_screeen.gd" id="1_4drr3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_dumil"]
+font_size = 43
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_wqx3u"]
+font_size = 28
+font_color = Color(0, 0, 0, 1)
+
+[node name="win_screeen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4drr3")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -20.0
+offset_right = 1202.0
+offset_bottom = 714.0
+color = Color(0.831373, 0.831373, 0.831373, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -126.0
+offset_right = 126.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="next_level" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Next Level"
+
+[node name="level_selection" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Level Selection"
+
+[node name="menu" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Menu"
+
+[node name="quit" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 462.96
+offset_top = 141.898
+offset_right = 693.96
+offset_bottom = 199.898
+text = "LEVEL BEAT!"
+label_settings = SubResource("LabelSettings_dumil")
+vertical_alignment = 1
+uppercase = true
+
+[node name="TimeStats" type="Label" parent="."]
+layout_mode = 0
+offset_left = 448.0
+offset_top = 440.0
+offset_right = 679.0
+offset_bottom = 566.0
+text = "Time :
+Highscore:
+"
+label_settings = SubResource("LabelSettings_wqx3u")
+vertical_alignment = 1
+uppercase = true
+
+[node name="CoinStats" type="Label" parent="."]
+layout_mode = 0
+offset_left = 448.0
+offset_top = 504.0
+offset_right = 679.0
+offset_bottom = 630.0
+text = "
+coins: ##"
+label_settings = SubResource("LabelSettings_wqx3u")
+vertical_alignment = 1
+uppercase = true
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/next_level" to="." method="_on_next_level_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/level_selection" to="." method="_on_level_selection_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/menu" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/quit" to="." method="_on_quit_pressed"]

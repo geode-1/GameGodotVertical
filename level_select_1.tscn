@@ -1,0 +1,67 @@
+[gd_scene load_steps=2 format=3 uid="uid://cpw7w5wfirwjo"]
+
+[ext_resource type="Script" path="res://level_select_1.gd" id="1_088e6"]
+
+[node name="level_select_1" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_088e6")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -50.0
+offset_top = 1.0
+offset_right = 1284.0
+offset_bottom = 711.0
+color = Color(0.831373, 0.831373, 0.831373, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 384.0
+offset_top = -82.0
+offset_right = 768.0
+offset_bottom = 725.0
+color = Color(0.6, 0.6, 0.6, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -132.0
+offset_top = -114.0
+offset_right = 126.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Tutorial_1" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Tutorial 1"
+
+[node name="Level_1" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Level 1"
+
+[node name="Level_2" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Level 2"
+
+[node name="Back" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Tutorial_1" to="." method="_on_tutorial_1_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Level_1" to="." method="_on_level_1_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Level_2" to="." method="_on_level_2_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]
